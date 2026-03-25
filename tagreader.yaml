@@ -1,8 +1,12 @@
+substitutions:
+  name: tagreader
+  friendly_name: TagReader
+
 # Insert your SSID and Your PWD after inital setup
 wifi:
-# networks:
-#    - ssid: 'REPLACEME'          # Enter your WiFi SSID here. Example: `ssid: 'your_network_name'`
-#      password: 'REPLACEME'      # Enter your wifi password here. Example: `password: 'abcde123456'`
+  networks:
+     - ssid: !secret ssid
+       password: !secret password
   ap:
     ssid: ${name}
 
@@ -10,14 +14,9 @@ wifi:
 captive_portal:
 
 dashboard_import:
-  package_import_url: github://adonno/tagreader/tagreader.yaml
+  package_import_url: github://githoss/tagreader/tagreader.yaml
 
 improv_serial:
-
-
-substitutions:
-  name: tagreader
-  friendly_name: TagReader
 
 esp8266:
   board: d1_mini
@@ -32,7 +31,7 @@ esphome:
   # This will allow for (future) project identification,
   # configuration and updates.
   project:
-    name: adonno.tag_reader
+    name: githoss.tag_reader
     version: dev
 # If buzzer is enabled, notify on api connection success
   on_boot:
@@ -368,7 +367,7 @@ pn532_i2c:
 # Define the buzzer output
 output:
 - platform: esp8266_pwm
-  pin: D7
+  pin: GPIO13
   id: buzzer
 
 binary_sensor:
@@ -400,7 +399,7 @@ rtttl:
 light:
 - platform: neopixelbus
   variant: WS2812
-  pin: D8
+  pin: GPIO15
   num_leds: 1
   flash_transition_length: 500ms
   type: GRB
